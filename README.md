@@ -11,3 +11,5 @@ Topics will include:
   * algorithms
   * other topics, check again soon
   
+Everything is written in pure C/C++.
+For simple projects, a simple *build.sh* file is provided. For larger projects, *make* is required.
