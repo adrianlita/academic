@@ -8,7 +8,6 @@ outname="aBigNum.out";
 main="main_aBigNum.cpp"
 
 srcfiles=(
-    "utils/my_string.c"
     "utils/utils.cpp"
     "aBigNum/aBigNum.cpp"
 );

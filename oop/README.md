@@ -29,3 +29,16 @@ The requirements for implemeting a string in C++, without using the String class
   * string comparison
   * element-wise access
 
+
+# aBigNum
+## Big numbers implementation in C++
+
+Sample implementation of big numbers (big integers) in C++, with C++ operator overloading and having most of the integer operations functional for any-size integers. Memory size and code efficiency haven't been cared for in this implementation. Base is **10** and it is fixed.
+
+Implementations of aBigNum class:
+  * constructors, destructor, copy operators (from int, and from char*)
+  * ostream operator<< overloaded to display easily using cout
+  * standard operations: + - * /(div) and %(modulo)
+  * ++ and -- operators
+  * negativization
+  * comparison operations (all)
