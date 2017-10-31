@@ -7,12 +7,13 @@ class aBigNum
   char *decimals;
   unsigned int l;
 
-  aBigNum add(const aBigNum& lhs, const aBigNum& rhs);          //adds two numbers both positive, (does not take into account the negative part)
-  aBigNum substract(const aBigNum& lhs, const aBigNum& rhs);    //substracts two numbers, both positive (can be negative, but it won't look at that)
+  aBigNum add(const aBigNum& lhs, const aBigNum& rhs) const;          //adds two numbers both positive, (does not take into account the negative part)
+  aBigNum substract(const aBigNum& lhs, const aBigNum& rhs) const;    //substracts two numbers, both positive (can be negative, but it won't look at that)
   void add1();        //adds 1 to the this, but does not look at the sign
   void substract1();  //substracts 1 to this, but does not look at the sign
 
-  aBigNum multiply(const char figure, const unsigned int power);  //returns this *figure*(10^power). figure is 0..9
+  aBigNum multiply(const char figure, const unsigned int power) const;  //returns this *figure*(10^power). figure is 0..9
+  aBigNum divide(const aBigNum& divider, const bool return_remainder) const;
 public:
   aBigNum();
   aBigNum(const int nr);
@@ -26,20 +27,20 @@ public:
   aBigNum& operator=(const char* nr);
   aBigNum& operator=(const aBigNum& rhs);
 
-  aBigNum operator+(const aBigNum& rhs);
-  aBigNum operator+(const int rhs);
+  aBigNum operator+(const aBigNum& rhs) const;
+  aBigNum operator+(const int rhs) const;
 
-  aBigNum operator-(const aBigNum& rhs);
-  aBigNum operator-(const int rhs);
+  aBigNum operator-(const aBigNum& rhs) const;
+  aBigNum operator-(const int rhs) const;
 
-  aBigNum operator*(const aBigNum& rhs);
-  aBigNum operator*(const int rhs);
+  aBigNum operator*(const aBigNum& rhs) const;
+  aBigNum operator*(const int rhs) const;
 
-  aBigNum operator/(const aBigNum& rhs);
-  aBigNum operator/(const int rhs);
+  aBigNum operator/(const aBigNum& rhs) const;
+  aBigNum operator/(const int rhs) const;
 
-  aBigNum operator%(const aBigNum& rhs);
-  aBigNum operator%(const int rhs);
+  aBigNum operator%(const aBigNum& rhs) const;
+  aBigNum operator%(const int rhs) const;
 
   aBigNum& operator++();    //prefix ++
   aBigNum operator++(int);  //postfix ++
@@ -47,7 +48,7 @@ public:
   aBigNum& operator--();    //prefix --
   aBigNum operator--(int);  //postfix --
 
-  aBigNum operator-();
+  aBigNum operator-() const;
   
   bool operator==(const aBigNum& rhs) const;
   bool operator!=(const aBigNum& rhs) const;

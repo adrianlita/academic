@@ -237,7 +237,7 @@ aBigNum& aBigNum::operator=(const aBigNum& rhs)
   return *this;
 }
 
-aBigNum aBigNum::add(const aBigNum& lhs, const aBigNum& rhs)
+aBigNum aBigNum::add(const aBigNum& lhs, const aBigNum& rhs) const
 {
   aBigNum result;
   result.l = 0;
@@ -285,7 +285,7 @@ aBigNum aBigNum::add(const aBigNum& lhs, const aBigNum& rhs)
   return result;
 }
 
-aBigNum aBigNum::substract(const aBigNum& lhs, const aBigNum& rhs)
+aBigNum aBigNum::substract(const aBigNum& lhs, const aBigNum& rhs) const
 {
   aBigNum result;
   bool neg;
@@ -349,7 +349,6 @@ aBigNum aBigNum::substract(const aBigNum& lhs, const aBigNum& rhs)
   if(neg)
     result.negative = !result.negative;
 
-
   char *r = new char[result.l];
   check_if_allocated_correctly(r);
   for(unsigned int i = 0; i < result.l; i++)
@@ -360,7 +359,7 @@ aBigNum aBigNum::substract(const aBigNum& lhs, const aBigNum& rhs)
   return result;
 }
 
-aBigNum aBigNum::multiply(const char figure, const unsigned int power)
+aBigNum aBigNum::multiply(const char figure, const unsigned int power) const
 {
   aBigNum result;
   if(figure)
@@ -397,7 +396,99 @@ aBigNum aBigNum::multiply(const char figure, const unsigned int power)
   return result;
 }
 
-aBigNum aBigNum::operator+(const aBigNum& rhs)
+aBigNum aBigNum::divide(const aBigNum& divider, const bool return_remainder) const
+{
+  aBigNum quoitent;
+  delete[] quoitent.decimals;
+  quoitent.decimals = new char[l];  //can be maximum l (for example, if we divide by 1)
+  check_if_allocated_correctly(quoitent.decimals);
+  for(unsigned int i = 0; i < quoitent.l; i++)
+    quoitent.decimals[i] = 0;
+
+  aBigNum remainder;
+  delete[] remainder.decimals;
+  remainder.decimals = new char[divider.l]; //can't be higher than the divider
+  check_if_allocated_correctly(remainder.decimals);
+  for(unsigned int i = 0; i < remainder.l; i++)
+    remainder.decimals[i] = 0;
+
+  aBigNum aux;  //this is used to for internal substractions and divisations
+  delete[] aux.decimals;
+  aux.decimals = new char[divider.l + 1];
+  check_if_allocated_correctly(aux.decimals);
+
+  unsigned int k = l;
+  quoitent.l = 1;
+  quoitent.decimals[0] = 0; //make it look like 0
+  remainder = 0;
+
+  //get into aux first number to try and divide it
+  unsigned int i = divider.l;
+  aux.l = divider.l;
+  while(i && k)
+  {
+    --i;
+    --k;
+    aux.decimals[i] = decimals[k];
+  }
+
+  while(k)
+  {
+    if(remainder != aBigNum())  //if reminder != 0
+    {
+      i = remainder.l;
+      aux.l = i;
+      while(i)
+      {
+        --i;
+        aux.decimals[i] = remainder.decimals[i];
+      }
+    }
+
+    //get one down
+    if((aux < divider) && k)
+    {
+      aux.l++;
+      i = aux.l;
+      while(i)
+      {
+        aux.decimals[i] = aux.decimals[i - 1];
+        --i;
+      }
+      
+      --k;
+      aux.decimals[0] = decimals[k];
+    }  
+    
+    //check to see it's divider
+    int multiplier = 1;
+    while((divider * multiplier) <= aux)
+      multiplier++;
+    multiplier--;
+
+    //move everything to the right
+    if(quoitent != aBigNum())
+    {
+      for(unsigned int j = quoitent.l; j > 0; j--)
+      quoitent.decimals[j] = quoitent.decimals[j - 1];
+
+      //add a zero
+      quoitent.decimals[0] = multiplier;
+      quoitent.l++;
+    }
+    else
+      quoitent.decimals[0] = multiplier;
+
+    remainder = aux - divider*multiplier; 
+  }
+
+  if(return_remainder)
+    return remainder;
+  else
+    return quoitent;
+}
+
+aBigNum aBigNum::operator+(const aBigNum& rhs) const
 {
   aBigNum result;
 
@@ -422,12 +513,12 @@ aBigNum aBigNum::operator+(const aBigNum& rhs)
   return result;
 }
 
-aBigNum aBigNum::operator+(const int rhs)
+aBigNum aBigNum::operator+(const int rhs) const
 {
   return operator+(aBigNum(rhs));
 }
 
-aBigNum aBigNum::operator-(const aBigNum& rhs)
+aBigNum aBigNum::operator-(const aBigNum& rhs) const
 {
   aBigNum result;
 
@@ -452,12 +543,12 @@ aBigNum aBigNum::operator-(const aBigNum& rhs)
 
   return result;
 }
-aBigNum aBigNum::operator-(const int rhs)
+aBigNum aBigNum::operator-(const int rhs) const
 {
   return operator-(aBigNum(rhs));
 }
 
-aBigNum aBigNum::operator*(const aBigNum& rhs)
+aBigNum aBigNum::operator*(const aBigNum& rhs) const
 {
   aBigNum result;
 
@@ -472,37 +563,53 @@ aBigNum aBigNum::operator*(const aBigNum& rhs)
   return result;
 }
 
-aBigNum aBigNum::operator*(const int rhs)
+aBigNum aBigNum::operator*(const int rhs) const
 {
   return operator*(aBigNum(rhs));
 }
 
-aBigNum aBigNum::operator/(const aBigNum& rhs)
-{
+aBigNum aBigNum::operator/(const aBigNum& rhs) const
+{  
+  if(rhs == aBigNum())
+    throw "Divison by zero!";
+
+  if(*this == aBigNum())
+    return aBigNum();
+
   aBigNum result;
-  
+
+  if(*this >= rhs)
+    result = divide(rhs, false);
+
   return result;
 }
 
-aBigNum aBigNum::operator/(const int rhs)
+aBigNum aBigNum::operator/(const int rhs) const
 {
+  return operator/(aBigNum(rhs));
+}
+
+aBigNum aBigNum::operator%(const aBigNum& rhs) const
+{
+  if(rhs == aBigNum())
+    throw "Divison by zero!";
+
+  if(*this == aBigNum())
+    return aBigNum();
+
   aBigNum result;
-  
+
+  if(*this < rhs)
+    result = *this;
+  else
+    result = divide(rhs, true);
+
   return result;
 }
 
-aBigNum aBigNum::operator%(const aBigNum& rhs)
+aBigNum aBigNum::operator%(const int rhs) const
 {
-  aBigNum result;
-  
-  return result;
-}
-
-aBigNum aBigNum::operator%(const int rhs)
-{
-  aBigNum result;
-  
-  return result;
+  return operator%(aBigNum(rhs));
 }
 
 void aBigNum::add1()
@@ -615,7 +722,7 @@ aBigNum aBigNum::operator--(int)
 }
 
 
-aBigNum aBigNum::operator-()
+aBigNum aBigNum::operator-() const
 {
   aBigNum result = *this;
   result.negative = !result.negative;
@@ -654,6 +761,9 @@ bool aBigNum::operator>(const aBigNum& rhs) const
   {
     if(l < rhs.l)
       return false;
+    
+    if(l > rhs.l)
+      return true;
 
     unsigned int i = l;
     while(i)
@@ -669,6 +779,9 @@ bool aBigNum::operator>(const aBigNum& rhs) const
   {
     if(l > rhs.l)
       return false;
+
+    if(l < rhs.l)
+      return true;
 
     unsigned int i = l;
     while(i)
