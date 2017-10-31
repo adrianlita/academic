@@ -406,11 +406,6 @@ aBigNum aBigNum::divide(const aBigNum& divider, const bool return_remainder) con
     quoitent.decimals[i] = 0;
 
   aBigNum remainder;
-  delete[] remainder.decimals;
-  remainder.decimals = new char[divider.l]; //can't be higher than the divider
-  check_if_allocated_correctly(remainder.decimals);
-  for(unsigned int i = 0; i < remainder.l; i++)
-    remainder.decimals[i] = 0;
 
   aBigNum aux;  //this is used to for internal substractions and divisations
   delete[] aux.decimals;
@@ -420,7 +415,6 @@ aBigNum aBigNum::divide(const aBigNum& divider, const bool return_remainder) con
   unsigned int k = l;
   quoitent.l = 1;
   quoitent.decimals[0] = 0; //make it look like 0
-  remainder = 0;
 
   //get into aux first number to try and divide it
   unsigned int i = divider.l;
@@ -432,6 +426,7 @@ aBigNum aBigNum::divide(const aBigNum& divider, const bool return_remainder) con
     aux.decimals[i] = decimals[k];
   }
 
+  bool first = true;
   while(k)
   {
     if(remainder != aBigNum())  //if reminder != 0
@@ -444,6 +439,16 @@ aBigNum aBigNum::divide(const aBigNum& divider, const bool return_remainder) con
         aux.decimals[i] = remainder.decimals[i];
       }
     }
+    else
+    {
+      if(!first)
+      {
+        i = 0;
+        aux.decimals[0] = 0;
+        aux.l = 1;
+      }
+    }
+    first = false;
 
     //get one down
     if((aux < divider) && k)
