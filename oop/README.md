@@ -1,3 +1,5 @@
+# Object-Oriented Programming examples in **C++**
+---
 # aMatrix
 ## Implementing a 2D matrix in C++.
 
@@ -11,7 +13,7 @@ The requirements for implemeting the 2-dimensional matrix class in C++ are the f
   * matrix inverse calculation
   * basic default matrix (O and I)
 
-
+---
 # aString
 ## Implementing a simple string in C++ without using the String class.
 
@@ -29,7 +31,7 @@ The requirements for implemeting a string in C++, without using the String class
   * string comparison
   * element-wise access
 
-
+---
 # aBigNum
 ## Big numbers implementation in C++
 
@@ -42,3 +44,32 @@ Implementations of aBigNum class:
   * ++ and -- operators
   * negativization
   * comparison operations (all)
+
+---
+# aDataStructures
+Simple data structures examples implemented in C++. All of the structures here are templated.
+
+## Linked List and Doubly Linked List
+
+Both the simply linked list and the doubly linked list are implemented using sentinel element, for simplicity and code efficiency.
+
+Implementation of linked lists:
+  * head and tail
+  * add element to: head, tail or position
+  * remove element from: head, tail, position or look for element
+  * operator[] - use list as an array
+  * search for element
+  * have a state (current position) manipulable throughout the list
+
+## Stack and Queue
+
+Stack and queue are implemented in to ways, both with the same prototype:
+  * derived from sLinkedList
+  * written from scratch, more efficiently than derived from sLinkedList
+
+Stack and queue implementation features:
+  * push function / adding element to the stack or queue
+  * pop function / extracting element fromt he stack or queue
+  * peek function / looking at the element to be popped, without popping it
+
+## Binary Search Tree, AVL Balanced Binary Search Tree
