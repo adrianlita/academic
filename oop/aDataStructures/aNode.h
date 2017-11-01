@@ -4,8 +4,11 @@
 
 //forward declarations. otherwise we can't make them friend classes
 template <typename Type> class sLinkedList;
+template <typename Type> class aStack;
+template <typename Type> class aQueue;
 template <typename Type> class dLinkedList;
 template <typename Type> class aBinaryTree;
+
 
 //sNode - node implementation for simple linked list, queue and stack
 template <typename Type>
@@ -26,6 +29,8 @@ public:
   }
 
   friend class sLinkedList<Type>;
+  friend class aStack<Type>;
+  friend class aQueue<Type>;
 };
 
 //dNode - node implementation for double linked list

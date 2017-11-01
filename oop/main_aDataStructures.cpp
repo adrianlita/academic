@@ -1,6 +1,8 @@
 #include <iostream>
 #include "aDataStructures/sLinkedList.h"
 #include "aDataStructures/dLinkedList.h"
+#include "aDataStructures/aStack.h"
+#include "aDataStructures/aQueue.h"
 using namespace std;
 
 int main()
@@ -164,7 +166,87 @@ int main()
   }
 
   cout << endl;
+
+  cout << endl << endl << endl;
   
+  cout << "Stacks" << endl;
+  cout << "aInheritedStack" << endl;
+  aInheritedStack<int> istack;
+  istack.push(12);
+  istack.push(13);
+  istack.push(14);
+  try
+  {
+    cout << istack.pop() << endl;
+    cout << istack.peek() << endl;
+    while(1)  //will automatically exit this loop by throw
+      cout << istack.pop() << endl;
+  }
+  catch(const char* s)
+  { 
+    cout << s << endl;
+  }
+
+  cout << "aStack" << endl;
+  aStack<int> sstack;
+  sstack.push(1);
+  sstack.push(2);
+  sstack.push(3);
+  sstack.push(4);
+  try
+  {
+    cout << sstack.pop() << endl;
+    sstack.peek_rw() = 10;
+    cout << sstack.peek() << endl;
+    while(1)  //will automatically exit this loop by throw
+      cout << sstack.pop() << endl;
+  }
+  catch(const char* s)
+  { 
+    cout << s << endl;
+  }
+
+  cout << endl << endl << endl;
+
+  cout << "Queues" << endl;
+  cout << "aInheritedQueue" << endl;
+  aInheritedQueue<int> iqueue;
+  iqueue.push(12);
+  iqueue.push(13);
+  iqueue.push(14);
+  try
+  {
+    cout << iqueue.pop() << endl;
+    cout << iqueue.peek() << endl;
+    while(1)  //will automatically exit this loop by throw
+      cout << iqueue.pop() << endl;
+  }
+  catch(const char* s)
+  { 
+    cout << s << endl;
+  }
+
+  cout << "aQueue" << endl;
+  aQueue<int> squeue;
+  squeue.push(1);
+  squeue.push(2);
+  squeue.push(3);
+  squeue.push(4);
+  try
+  {
+    cout << squeue.pop() << endl;
+    squeue.peek_rw() = 10;
+    cout << squeue.peek() << endl;
+    while(1)  //will automatically exit this loop by throw
+      cout << squeue.pop() << endl;
+  }
+  catch(const char* s)
+  { 
+    cout << s << endl;
+  }
+
+  cout << endl << endl << endl;
+
   cout << "aDataStructures finished!" << endl;
   return EXIT_SUCCESS;
 }
