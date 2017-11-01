@@ -52,6 +52,7 @@ Simple data structures examples implemented in C++. All of the structures here a
 ## Linked List and Doubly Linked List
 
 Both the simply linked list and the doubly linked list are implemented using sentinel element, for simplicity and code efficiency.
+On the doubly linked list, whenever a certain position is looked for the function decides automatically if it starts at head or at tail (whichever is closer).
 
 Implementation of linked lists:
   * head and tail
@@ -59,7 +60,7 @@ Implementation of linked lists:
   * remove element from: head, tail, position or look for element
   * operator[] - use list as an array
   * search for element
-  * have a state (current position) manipulable throughout the list
+  * have a state (current position) manipulable throughout the list (only the doubly linked list)
 
 ## Stack and Queue
 

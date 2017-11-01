@@ -40,7 +40,7 @@ public:
   bool Remove_From_Position(const unsigned int pos);                                          //removes element from position pos if exists and returns true. returns false if list had less than pos elements
 
   unsigned int Length() const;                                                                //returns the total number of elements
-  Type& operator[](const unsigned int index) const;                                           //returns list as a vector, with its respective element. throws error if index is larger than the list size
+  Type& operator[](const unsigned int index);                                                 //returns list as a vector, with its respective element. throws error if index is larger than the list size
 
   bool Exists(const Type& element) const;                                                     //returns the true if element exists, false if not
   aListSearchResult Search(const Type& element) const;                                        //searches for element. if no element is found, will update the return structure accordingly
@@ -297,7 +297,7 @@ public:
     return *this;
   }
 
-  Type& operator[](const unsigned int index) const
+  Type& operator[](const unsigned int index)
   {
     if(index >= length)
       throw "index is out of bounds";
@@ -364,4 +364,3 @@ public:
     return out;
   }
 };
-

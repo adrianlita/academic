@@ -1,12 +1,13 @@
 #include <iostream>
 #include "aDataStructures/sLinkedList.h"
+#include "aDataStructures/dLinkedList.h"
 using namespace std;
-
-template class sLinkedList<int>;
 
 int main()
 {
   cout << "aDataStructures sample program" << endl;
+  
+  aListSearchResult t;
 
   cout << "Simply Linked Lists" << endl;
   sLinkedList<int> a;
@@ -49,8 +50,7 @@ int main()
   cout << a << endl;
 
   cout << a.Exists(106) << " " << a.Exists(501) << endl;
-  
-  aListSearchResult t;
+
   t = a.Search(100);
   cout << "100: (" << t.found << "," << t.position << ")" << endl;
 
@@ -80,6 +80,73 @@ int main()
   cout << a.Remove_First_Found(2) << " <-- ";  //here you'll see 0 because there is no other 2 element
   cout << a << endl;
 
+  cout << endl << endl << endl;
+
+  cout << "Doubly Linked Lists" << endl;
+  dLinkedList<int> ad;
+
+  ad.Add_To_Tail(8);
+  ad.Add_To_Head(1);
+  ad.Add_To_Head(2);
+  ad.Add_To_Head(3);
+  ad.Add_To_Tail(4);
+  ad.Add_To_Tail(5);
+  ad.Add_To_Tail(6);
+  cout << ad << endl;
+
+  ad.Remove_Head();
+  ad.Remove_Tail();
+  cout << ad << endl;
+
+  ad += 18;
+  ad += 19;
+  dLinkedList<int> bd = ad;
+  cout << bd << endl;
+
+  ad += bd;
+  cout << ad << endl;
+
+  ad = bd + 100;
+  cout << ad << endl;
+
+  bd = 101 + ad;
+  cout << bd << endl;
+
+  cout << "bd[1] = " << bd[1] << endl;
+  bd[8] = 300;
+  cout << bd << endl;
+
+  cout << ad << endl;
+  ad.Add_To_Position(105, 0);
+  ad.Add_To_Position(106, 2);
+  ad.Add_To_Position(107, 9);
+  cout << ad << endl;
+
+  t = ad.Search_From_Head(100);
+  cout << "100: (" << t.found << "," << t.position << ")" << endl;
+
+  t = ad.Search_From_Tail(100);
+  cout << "100: (" << t.found << "," << t.position << ")" << endl;
+
+  t = ad.Search_From_Head(8);
+  cout << "8: (" << t.found << "," << t.position << ")" << endl;
+
+  t = ad.Search_From_Head(30);
+  cout << "30: (" << t.found << "," << t.position << ")" << endl;
+
+  ad.Remove_From_Position(0);
+  cout << ad << endl;
+  ad.Remove_From_Position(1);
+  cout << ad << endl;
+  cout << ad.Remove_From_Position(8) << " <-- "; //here you'll see 1, because it removed item from pos 8
+  cout << ad << endl;
+  cout << ad.Remove_From_Position(8) << " <-- "; //here you'll see 0, because there is no item on position 8
+  cout << ad << endl;
+
+  cout << "Head->Tail: " << ad << endl;
+  ad.Set_Run_Direction(true);
+  cout << "Tail->Head: " << ad << endl;
+  
   cout << "aDataStructures finished!" << endl;
   return EXIT_SUCCESS;
 }
