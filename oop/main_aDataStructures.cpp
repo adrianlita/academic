@@ -146,6 +146,24 @@ int main()
   cout << "Head->Tail: " << ad << endl;
   ad.Set_Run_Direction(true);
   cout << "Tail->Head: " << ad << endl;
+
+  //now play with current element
+  cout << "Going with current element from 0 to 15 (if exists)" << endl;
+  ad.Set_Current_Element_Position(0);
+  for(int i = 0; i < 15; i++)
+  {
+    cout << ad.Current_Element() << "(pos=" << ad.Get_Current_Element_Position() << ") ";
+    ++ad;
+  }
+  cout << endl;
+  cout << "Going with current element back for 15 positions (if exist))" << endl;
+  for(int i = 0; i < 15; i++)
+  {
+    cout << ad.Current_Element() << "(pos=" << ad.Get_Current_Element_Position() << ") ";
+    --ad;
+  }
+
+  cout << endl;
   
   cout << "aDataStructures finished!" << endl;
   return EXIT_SUCCESS;

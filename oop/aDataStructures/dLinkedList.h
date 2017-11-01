@@ -56,6 +56,7 @@ public:
   dLinkedList<Type>& operator++();                                                            //advances current element forward (next)
   dLinkedList<Type>& operator--();                                                            //advances current element backward (prev)
 
+  void Set_Run_Direction(bool tail_to_head);                                                  //by default, when outputting with << it will go from head to tail. with this function you can change it otherwise
   friend std::ostream& operator<<(std::ostream& out, const dLinkedList<Type>& rhs);
 };
 */
@@ -87,7 +88,11 @@ public:
     head->next->prev = p;
     head->next = p;
     if(head == tail)
+    {
       tail = p;
+      current = p;
+      current_position = 0;
+    }
     length++;
   }
 
@@ -99,12 +104,17 @@ public:
     p->prev = tail;
     tail = p;
     length++;
+    if(length == 1)
+    {
+      current = p;
+      current_position = 0;
+    }
   }
 
   void Add_To_Position(const Type& element, const unsigned int pos)
   {
     if((pos == 0) || (length == 0))
-      Add_To_Head(element);
+      Add_To_Head(element); //current is automatically updated here
     else
     if(pos >= length)
       Add_To_Tail(element);
@@ -166,6 +176,16 @@ public:
 
     delete p;
     length--;
+    if(current == p)
+    {
+      if(length)
+      {
+        current = head->next;
+        current_position = 0;
+      }
+      else
+        current = head;
+    }
 
     return true;
   }
@@ -181,6 +201,16 @@ public:
 
     delete p;
     length--;
+    if(current == p)
+    {
+      if(length)
+      {
+        current = head->next;
+        current_position = 0;
+      }
+      else
+        current = head;
+    }
 
     return true;
   }
@@ -201,6 +231,7 @@ public:
     length = 0;
     head->next = NULL;
     tail = head;
+    current = head;
 
     return true;
   }
@@ -233,6 +264,16 @@ public:
         if(p == tail)
           tail = crt;
         length--;
+        if(current == p)
+        {
+          if(length)
+          {
+            current = head->next;
+            current_position = 0;
+          }
+          else
+            current = head;
+        }
       }
       else
       {
@@ -253,6 +294,16 @@ public:
         if(p == tail)
           tail = crt;
         length--;
+        if(current == p)
+        {
+          if(length)
+          {
+            current = head->next;
+            current_position = 0;
+          }
+          else
+            current = head;
+        }
       }
     }
 
@@ -276,6 +327,7 @@ public:
     check_if_allocated_correctly(head);
     tail = head;
     direction = false;
+    current = head;
   }
 
   dLinkedList(const dLinkedList<Type>& rhs)
@@ -285,6 +337,7 @@ public:
     check_if_allocated_correctly(head);
     tail = head;
     direction = false;
+    current = head;
 
     Add_List_To_Tail(rhs);
   }
@@ -301,6 +354,7 @@ public:
     {
       Remove_All();
       direction = rhs.direction;
+      current = head;
       Add_List_To_Tail(rhs);
     }
     return *this;
@@ -343,8 +397,33 @@ public:
 
   Type& operator[](const unsigned int index)
   {
-    static Type trash;
-    return trash;
+    if(index >= length)
+      throw "index is out of bounds";
+
+    if(index < length/2)
+    {
+      unsigned int i = 0;
+      dNode<Type> *p = head->next;
+
+      while(i < index)
+      {
+        p = p->next;
+        i++;
+      }
+      return p->data;
+    }
+    else
+    {
+      unsigned int i = length - 1;
+      dNode<Type> *p = tail;
+
+      while(i > index)
+      {
+        p = p->prev;
+        i--;
+      }
+      return p->data;
+    }
   }
 
   aListSearchResult Search_From_Head(const Type& element) const
@@ -395,12 +474,61 @@ public:
     return result;
   }
 
-  // bool Set_Current_Element_Position(unsigned int pos);
-  // unsigned int Get_Current_Element_Position();
-  // Type& Current_Element();
+  bool Set_Current_Element_Position(unsigned int pos)
+  {
+    if(pos >= length)
+      return false;
 
-  // dLinkedList<Type>& operator++();
-  // dLinkedList<Type>& operator--();
+    while(pos < current_position)
+    {
+      current = current->prev;
+      current_position--;
+    }
+
+    while(pos > current_position)
+    {
+      current = current->next;
+      current_position++;
+    }
+
+    return true;
+  }
+
+  unsigned int Get_Current_Element_Position()
+  {
+    if(current == head)
+      throw "current element not set correctly";
+
+    return current_position;
+  }
+
+  Type& Current_Element()
+  {
+    if(current == head)
+      throw "current element not set correctly";
+    
+    return current->data;
+  }
+
+  dLinkedList<Type>& operator++()
+  {
+    if(current->next)
+    {
+      current_position++;
+      current = current->next;
+    }
+    return *this;
+  }
+
+  dLinkedList<Type>& operator--()
+  {
+    if(current->prev != head)
+    {
+      current = current->prev;
+      current_position--;
+    }
+    return *this;
+  }
 
   void Set_Run_Direction(bool tail_to_head)
   {
