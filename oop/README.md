@@ -74,3 +74,13 @@ Stack and queue implementation features:
   * peek function / looking at the element to be popped, without popping it
 
 ## Binary Search Tree, AVL Balanced Binary Search Tree
+
+---
+# aPolygon
+A simple convex, non-intersecting polygon for demonstrating class inheritance and polymorphism.
+
+The base class include:
+  * base constructors and destructor
+  * outputing to ostream
+  * perimeter calculation function
+  * pure virtual function for area
