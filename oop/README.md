@@ -83,4 +83,12 @@ The base class include:
   * base constructors and destructor
   * outputing to ostream
   * perimeter calculation function
-  * pure virtual function for area
+  * pure virtual function for area which results in
+  * abstractization of class aPolygon
+
+Derived classes are:
+  * aTriangle: public aPolygon
+  * aRectangle: public aPolygon
+  * aSquare: public aRectangle
+
+In all the derived classes we implement extra functions, specific to those classes, but we also re-implement the Perimeter() function in order to make it as efficient as possible (and of course, in order to show how polymorphism and virtual functions work).

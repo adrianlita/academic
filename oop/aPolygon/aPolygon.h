@@ -7,7 +7,9 @@ class aPolygon
 protected:
   int n;      //number of edges
   double *l;  //length of edge
+  void set_name(const char *s);
 private:
+  char *name; //name of class, for demo purposes
   aPolygon();   //don't want to allow a Polygon with less than 3 edges
 public:
   aPolygon(const int ne); //builds a polygon with ne edges
@@ -31,9 +33,18 @@ class aTriangle : public aPolygon
 public:
   aTriangle();
   aTriangle(const double a, const double b, const double c);
-
+  
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Woverloaded-virtual"
+  /* 
+    disable overload-virtual warning, because here we intend to
+    inherit the virtual function from aPolygon without overloading it,
+    and also build another overload function for ease of use
+  */
   void setLength(const double a, const double b, const double c);
-
+  #pragma clang diagnostic pop
+  
+  
   double Area() const;
 
   bool isRight() const;       //if has right angle
@@ -49,7 +60,7 @@ public:
 
   virtual void setLength(const int edge_no, const double length); //overload so if it changes one edge, it automatically changes the other
   void setLength(const double side0, const double side1);
-
+  
   virtual double Perimeter() const;    //a more efficient perimeter calculation
   double Area() const;    
   

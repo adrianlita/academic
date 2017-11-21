@@ -3,10 +3,23 @@
 #include <math.h>
 using namespace std;
 
+void aPolygon::set_name(const char *s)
+{
+  if(name)
+    delete[] name;
+
+  name = new char[strlen(s) + 1];
+  if(!name)
+    throw "memory allocation error";
+  strcpy(name, s);
+}
+
 aPolygon::aPolygon()
 {
   n = 0;
   l = NULL;
+  name = NULL;
+  set_name("aPolygon");
 }
 
 aPolygon::aPolygon(const int ne)
@@ -20,6 +33,9 @@ aPolygon::aPolygon(const int ne)
     throw "memory allocation error";
   for(int i = 0; i < n; i++)
     l[i] = 1;
+  
+  name = NULL;
+  set_name("aPolygon");
 }
 
 aPolygon::aPolygon(const aPolygon& rhs)
@@ -33,11 +49,17 @@ aPolygon::aPolygon(const aPolygon& rhs)
     throw "memory allocation error";
   for(int i = 0; i < n; i++)
     l[i] = rhs.l[i];
+
+  name = NULL;
+  set_name("aPolygon");
 }
 
 aPolygon::~aPolygon()
 {
   delete[] l;
+
+  if(name)
+    delete[] name;
 }
 
 aPolygon& aPolygon::operator=(const aPolygon& rhs)
@@ -47,6 +69,9 @@ aPolygon& aPolygon::operator=(const aPolygon& rhs)
     if(l)
       delete[] l;
 
+    if(name)
+      delete[] name;
+
     if(rhs.n < 3)
       throw "too few edges";
     n = rhs.n;
@@ -55,6 +80,8 @@ aPolygon& aPolygon::operator=(const aPolygon& rhs)
       throw "memory allocation error";
     for(int i = 0; i < n; i++)
       l[i] = rhs.l[i];
+
+    set_name("aPolygon");
   }
   return *this;
 }
@@ -92,7 +119,9 @@ double aPolygon::operator[](int i) const
 
 ostream& operator<<(ostream& out, const aPolygon& rhs)
 {
-  out << "Polygon(" << rhs.n << "): ";
+  out << "Polygon(" << rhs.n << ") ";
+  out << "-" << rhs.name << "-";
+  out << ": ";
   for(int i = 0; i < rhs.n; i++)
     out << rhs.l[i] << " ";
 
@@ -101,6 +130,7 @@ ostream& operator<<(ostream& out, const aPolygon& rhs)
 
 aTriangle::aTriangle() : aPolygon(3)
 {
+  set_name("aTriangle");
 }
 
 aTriangle::aTriangle(const double a, const double b, const double c) : aPolygon(3)
@@ -117,6 +147,8 @@ aTriangle::aTriangle(const double a, const double b, const double c) : aPolygon(
   l[0] = a;
   l[1] = b;
   l[2] = c;
+
+  set_name("aTriangle");
 }
 
 void aTriangle::setLength(const double a, const double b, const double c)
@@ -186,7 +218,7 @@ bool aTriangle::isEquilateral() const
 
 aRectangle::aRectangle() : aPolygon(4)
 {
-
+  set_name("aRectangle");
 }
 
 aRectangle::aRectangle(const double side0, const double side1) : aPolygon(4)
@@ -199,6 +231,8 @@ aRectangle::aRectangle(const double side0, const double side1) : aPolygon(4)
 
   l[0] = l[2] = side0;
   l[1] = l[3] = side1;
+
+  set_name("aRectangle");
 }
 
 void aRectangle::setLength(const int edge_no, const double length)
@@ -254,15 +288,17 @@ bool aRectangle::isSquare()
 
 void aSquare::setLength(const double side0, const double side1)
 {
-  //do nothing, as this is just masked
+  //do nothing, as this is just masked (private, so there can be no usege of it, as it may be wrongfully used)
 }
 
 aSquare::aSquare() : aRectangle()
 {
+  set_name("aSquare");
 }
 
 aSquare::aSquare(const double length) : aRectangle(length, length)
 {
+  set_name("aSquare");
 }
 
 void aSquare::setLength(const int edge_no, const double length)
