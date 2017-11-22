@@ -117,6 +117,18 @@ double aPolygon::operator[](int i) const
   return l[i];
 }
 
+void aPolygon::print_Info()
+{
+  /*
+    this is just a function which proves polymorphism.
+
+    it is deliberately implemented in the base class, but uses functions implemented in child classes
+  */
+  
+  std::cout << "Info-Perimeter: " << Perimeter() << std::endl; //note that Perimeter() used here may be from this base class, or the one overloaded in the derived class
+  std::cout << "Info-Area: " << Area() << std::endl; //note that Area() is a pure virtual function in this class
+}
+
 ostream& operator<<(ostream& out, const aPolygon& rhs)
 {
   out << "Polygon(" << rhs.n << ") ";

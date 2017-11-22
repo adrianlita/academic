@@ -3,6 +3,7 @@
 #include "aDataStructures/dLinkedList.h"
 #include "aDataStructures/aStack.h"
 #include "aDataStructures/aQueue.h"
+#include "aDataStructures/aBinarySearchTree.h"
 using namespace std;
 
 int main()
@@ -246,6 +247,15 @@ int main()
   }
 
   cout << endl << endl << endl;
+
+
+  aBinarySearchTree<int> f;
+  cout << f << endl;
+  f.Add(5);
+  f.Add(1);
+  f.Add(9);
+  f.Add(4);
+  f.Add(11);
 
   cout << "aDataStructures finished!" << endl;
   return EXIT_SUCCESS;

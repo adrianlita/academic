@@ -24,6 +24,8 @@ public:
 
   virtual double Perimeter() const;
   virtual double Area() const = 0;  //pure virtual area
+
+  void print_Info();   //just a demo function to prove polymorphism
   
   friend std::ostream& operator<<(std::ostream& out, const aPolygon& rhs);
 };

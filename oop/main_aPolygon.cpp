@@ -20,6 +20,8 @@ int main()
     cout << "isRight?: " << a.isRight() << endl;
     cout << "isIsosceles?: " << a.isIsosceles() << endl;
     cout << "isEquilateral?: " << a.isEquilateral() << endl;
+
+    a.print_Info();
   }
   catch(const char *msg)
   {
@@ -34,6 +36,8 @@ int main()
     cout << "Perimeter: " << a.Perimeter() << endl;
     cout << "Area: " << a.Area() << endl;
     cout << "isSquare?: " << a.isSquare() << endl;
+
+    a.print_Info();
   }
   catch(const char *msg)
   {
@@ -48,6 +52,8 @@ int main()
     cout << "Perimeter: " << a.Perimeter() << endl;
     cout << "Area: " << a.Area() << endl;
     cout << "isSquare?: " << a.isSquare() << endl;  //inherited
+
+    a.print_Info();
   }
   catch(const char *msg)
   {
@@ -72,6 +78,8 @@ int main()
 
       cout << "Perimeter: " << p[i]->Perimeter() << endl;
       cout << "Area: " << p[i]->Area() << endl;
+
+      p[i]->print_Info();
 
       cout << endl;
     }
