@@ -251,11 +251,31 @@ int main()
 
   aBinarySearchTree<int> f;
   cout << f << endl;
-  f.Add(5);
-  f.Add(1);
-  f.Add(9);
+  f.Add(8);
   f.Add(4);
-  f.Add(11);
+  f.Add(2);
+  f.Add(1);
+  f.Add(3);
+  f.Add(6);
+  f.Add(5);
+  f.Add(7);
+  f.Add(12);
+  f.Add(9);
+  f.Add(10);
+  f.Add(15);
+  f.Add(14);
+  cout << "Total nodes in BST: " << f.Total_Nodes() << endl;
+  cout << f << endl;
+  cout << (int)f.Delete(8) << endl; 
+  cout << f << endl;
+  cout << (int)f.Delete(14) << endl; 
+  cout << f << endl;
+  cout << (int)f.Delete(29) << endl; 
+  cout << f << endl;
+
+  f.PreOrder();
+  f.InOrder();
+  f.PostOrder();
 
   cout << "aDataStructures finished!" << endl;
   return EXIT_SUCCESS;

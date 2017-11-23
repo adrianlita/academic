@@ -11,6 +11,12 @@ class aBinarySearchTree
 {
   tNode<Type> *root;
 
+  void pre_order(const tNode<Type>* node);
+  void in_order(const tNode<Type>* node);
+  void post_order(const tNode<Type>* node);
+
+  tNode<Type>* delete_element(tNode<Type>* node, const Type& element, bool& found);
+
   bool element_exists(const tNode<Type> *node, const Type& element) const;
   unsigned int count_nodes(const tNode<Type> *node) const;
   void delete_tree(const tNode<Type> *node);
@@ -28,7 +34,11 @@ public:
   bool Exists(const Type& element) const;                                                     //returns the true if element exists, false if not
 
   void Add(const Type& element);                                                              //adds element to BST
-  bool Remove(const Type& element);                                                           //tries to remove element to BST. returns true if element existed, false if not
+  bool Delete(const Type& element);                                                           //tries to remove element to BST. returns true if element existed, false if not
+
+  void PreOrder();                                                                            //parses the tree in preorder (Root Left Right)
+  void InOrder();                                                                             //parses the tree in order (Left Root Right)
+  void PostOrder();                                                                           //parses the tree in post order (Right Root Left)
   
   friend std::ostream& operator<<(std::ostream& out, const aBinarySearchTree<Type>& rhs);
 };
@@ -41,6 +51,87 @@ class aBinarySearchTree
 {
 protected:
   tNode<Type> *root;
+
+  void pre_order(const tNode<Type>* node)
+  {
+    if(node == NULL)
+      return;
+
+    std::cout << node->data << " ";
+    pre_order(node->left);
+    pre_order(node->right);
+  }
+
+  void in_order(const tNode<Type>* node)
+  {
+    if(node == NULL)
+      return;
+
+    in_order(node->left);
+    std::cout << node->data << " ";
+    in_order(node->right);
+  }
+
+  void post_order(const tNode<Type>* node)
+  {
+    if(node == NULL)
+      return;
+
+    post_order(node->right);
+    std::cout << node->data << " ";
+    post_order(node->left);
+  }
+
+
+  tNode<Type>* delete_element(tNode<Type>* node, const Type& element, bool& found)
+  {
+    if(node == NULL)
+      return NULL;
+
+    if(element < node->data)
+      node->left = delete_element(node->left, element, found);
+    else
+    if(element > node->data)
+      node->right = delete_element(node->right, element, found);
+    else
+    {
+      if(node->left == NULL && node->right == NULL)
+      {
+        delete node;
+        found = true;
+        node = NULL;
+      }
+      
+      else
+      if(node->left == NULL)
+      {
+        tNode<Type> *temp = node;
+        node = node->right;
+        delete temp;
+        found = true;
+      }
+      
+      else
+      if(node->right == NULL)
+      {
+        tNode<Type> *temp = node;
+        node = node->left;
+        delete temp;
+        found = true;
+      }
+      else
+      {
+        tNode<Type> *temp = node->right;
+        while(temp->left)
+          temp = temp->left;
+
+        node->data = temp->data;  //it's easier to interchange elements in between than to change children, etc
+        node->right = delete_element(node->right, temp->data, found);
+      }
+    }
+
+    return node; // parent node can update reference
+  }
 
   bool element_exists(const tNode<Type> *node, const Type& element) const
   {
@@ -166,10 +257,38 @@ public:
     }
   }
 
-  bool Remove(const Type& element)
+  bool Delete(const Type& element)
   {
+    if(root == NULL)
+      return false;
 
+    bool found;
+    found = false;
+
+    root = delete_element(root, element, found);
+    
+
+    return found;
   }
+
+  void PreOrder()
+  {
+    pre_order(root);
+    std::cout << std::endl;
+  }
+
+  void InOrder()
+  {
+    in_order(root);
+    std::cout << std::endl;
+  }
+
+  void PostOrder()
+  {
+    post_order(root);
+    std::cout << std::endl;
+  }
+
 
   
   friend std::ostream& operator<<(std::ostream& out, const aBinarySearchTree<Type>& rhs)
