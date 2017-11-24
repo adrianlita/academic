@@ -1,5 +1,4 @@
 #include "aString.h"
-#include "../utils/utils.h"
 #include "../utils/my_string.h"
 using namespace std;
 
@@ -8,7 +7,8 @@ void aString::set(const char *x)
   if(x)
   {
     s = new char[my_strlen(x) + 1];
-    check_if_allocated_correctly(s);
+    if(!s)
+      throw "allocation problem";
     my_strcpy(s, x);
   }
 }
@@ -134,7 +134,8 @@ aString aString::operator+(const aString& rhs)
   if(l)
   {
     result.s = new char[l + 1];
-    check_if_allocated_correctly(result.s);
+    if(!result.s)
+      throw "allocation problem";
     my_strcpy(result.s, "");  //same as result.s[0] = 0;
     if(s)
       my_strcat(result.s, s);
@@ -152,7 +153,8 @@ aString aString::operator+(const char rhs)
     l += my_strlen(s);
   
   result.s = new char[l + 1];
-  check_if_allocated_correctly(result.s);
+  if(!result.s)
+    throw "allocation problem";
   my_strcpy(result.s, "");  //same as result.s[0] = 0;
   if(s)
     my_strcat(result.s, s);
@@ -174,7 +176,8 @@ aString aString::operator+(const char* rhs)
   if(l)
   {
     result.s = new char[l + 1];
-    check_if_allocated_correctly(result.s);
+    if(!result.s)
+      throw "allocation problem";
     my_strcpy(result.s, "");  //same as result.s[0] = 0;
     if(s)
       my_strcat(result.s, s);
@@ -192,7 +195,8 @@ aString operator+(const char lhs, const aString& rhs)
     l += my_strlen(rhs.s);
   
   result.s = new char[l + 1];
-  check_if_allocated_correctly(result.s);
+  if(!result.s)
+    throw "allocation problem";
   
   result.s[0] = lhs;
   result.s[1] = 0;  //null termination
@@ -213,7 +217,8 @@ aString operator+(const char* lhs, const aString& rhs)
   if(l)
   {
     result.s = new char[l + 1];
-    check_if_allocated_correctly(result.s);
+    if(!result.s)
+      throw "allocation problem";
     my_strcpy(result.s, "");  //same as result.s[0] = 0;
     if(lhs)
       my_strcat(result.s, lhs);
@@ -235,7 +240,8 @@ aString& aString::operator+=(const aString& rhs)
       l += my_strlen(s);
 
     char *new_s = new char[l + 1];
-    check_if_allocated_correctly(new_s);
+    if(!new_s)
+      throw "allocation problem";
     my_strcpy(new_s, "");
     if(s)
       my_strcat(new_s, s);
@@ -259,7 +265,8 @@ aString& aString::operator+=(const char rhs)
     l += my_strlen(s);
 
   char *new_s = new char[l + 1];
-  check_if_allocated_correctly(new_s);
+  if(!new_s)
+    throw "allocation problem";
   my_strcpy(new_s, "");
   if(s)
     my_strcat(new_s, s);
@@ -287,7 +294,8 @@ aString& aString::operator+=(const char* rhs)
       l += my_strlen(s);
 
     char *new_s = new char[l + 1];
-    check_if_allocated_correctly(new_s);
+    if(!new_s)
+      throw "allocation problem";
     my_strcpy(new_s, "");
     if(s)
       my_strcat(new_s, s);

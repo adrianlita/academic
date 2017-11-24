@@ -1,6 +1,5 @@
 #include "aBigNum.h"
 #include <cstring>
-#include "../utils/utils.h"
 using namespace std;
 
 
@@ -9,7 +8,8 @@ aBigNum::aBigNum()
   negative = false;
   l = 1;
   decimals = new char[l];
-  check_if_allocated_correctly(decimals);
+  if(!decimals)
+    throw "allocation problem";
   decimals[0] = 0;
 }
 
@@ -43,7 +43,8 @@ aBigNum::aBigNum(const int nr)
   }
 
   decimals = new char[l];
-  check_if_allocated_correctly(decimals);
+  if(!decimals)
+    throw "allocation problem";
   for(unsigned int i = 0; i < l; i++)
     decimals[i] = s[i];
 }
@@ -72,7 +73,8 @@ aBigNum::aBigNum(const char *nr)
 
     l = len;
     decimals = new char[l];
-    check_if_allocated_correctly(decimals);
+    if(!decimals)
+      throw "allocation problem";
 
     while(len)
     {
@@ -85,7 +87,8 @@ aBigNum::aBigNum(const char *nr)
   {
     l = 1;
     decimals = new char[l];
-    check_if_allocated_correctly(decimals);
+    if(!decimals)
+      throw "allocation problem";
     decimals[0] = 0;
   }
 }
@@ -97,7 +100,8 @@ aBigNum::aBigNum(const aBigNum& rhs)
     negative = rhs.negative;
     l = rhs.l;
     decimals = new char[l];
-    check_if_allocated_correctly(decimals);
+    if(!decimals)
+      throw "allocation problem";
     for(unsigned int i = 0; i < l; i++)
       decimals[i] = rhs.decimals[i];
   }
@@ -106,7 +110,8 @@ aBigNum::aBigNum(const aBigNum& rhs)
     negative = false;
     l = 1;
     decimals = new char[l];
-    check_if_allocated_correctly(decimals);
+    if(!decimals)
+      throw "allocation problem";
     decimals[0] = 0;
   }
 }
@@ -155,7 +160,8 @@ aBigNum& aBigNum::operator=(const int nr)
   }
 
   decimals = new char[l];
-  check_if_allocated_correctly(decimals);
+  if(!decimals)
+    throw "allocation problem";
   for(unsigned int i = 0; i < l; i++)
     decimals[i] = s[i];
 
@@ -189,7 +195,8 @@ aBigNum& aBigNum::operator=(const char* nr)
 
     l = len;
     decimals = new char[l];
-    check_if_allocated_correctly(decimals);
+    if(!decimals)
+      throw "allocation problem";
 
     while(len)
     {
@@ -202,7 +209,8 @@ aBigNum& aBigNum::operator=(const char* nr)
   {
     l = 1;
     decimals = new char[l];
-    check_if_allocated_correctly(decimals);
+    if(!decimals)
+      throw "allocation problem";
     decimals[0] = 0;
   }
 
@@ -221,7 +229,8 @@ aBigNum& aBigNum::operator=(const aBigNum& rhs)
       negative = rhs.negative;
       l = rhs.l;
       decimals = new char[l];
-      check_if_allocated_correctly(decimals);
+      if(!decimals)
+        throw "allocation problem";
       for(unsigned int i = 0; i < l; i++)
         decimals[i] = rhs.decimals[i];
     }
@@ -230,7 +239,8 @@ aBigNum& aBigNum::operator=(const aBigNum& rhs)
       negative = false;
       l = 1;
       decimals = new char[l];
-      check_if_allocated_correctly(decimals);
+      if(!decimals)
+        throw "allocation problem";
       decimals[0] = 0;
     }
   }
@@ -250,7 +260,8 @@ aBigNum aBigNum::add(const aBigNum& lhs, const aBigNum& rhs) const
     result.l = rhs.l + 1;
   
   result.decimals = new char[result.l];
-  check_if_allocated_correctly(result.decimals);
+  if(!result.decimals)
+    throw "allocation problem";
   for(unsigned int i = 0; i < result.l; i++)
     result.decimals[i] = 0;
 
@@ -275,7 +286,8 @@ aBigNum aBigNum::add(const aBigNum& lhs, const aBigNum& rhs) const
   {
     result.l--;
     char *r = new char[result.l];
-    check_if_allocated_correctly(r);
+    if(!r)
+      throw "allocation problem";
     for(unsigned i = 0; i < result.l; i++)
       r[i] = result.decimals[i];
     delete[] result.decimals;
@@ -316,7 +328,8 @@ aBigNum aBigNum::substract(const aBigNum& lhs, const aBigNum& rhs) const
     result.l = rterm->l + 1;
   
   result.decimals = new char[result.l];
-  check_if_allocated_correctly(result.decimals);
+  if(!result.decimals)
+    throw "allocation problem";
   for(unsigned int i = 0; i < result.l; i++)
     result.decimals[i] = 0;
 
@@ -350,7 +363,8 @@ aBigNum aBigNum::substract(const aBigNum& lhs, const aBigNum& rhs) const
     result.negative = !result.negative;
 
   char *r = new char[result.l];
-  check_if_allocated_correctly(r);
+  if(!r)
+    throw "allocation problem";
   for(unsigned int i = 0; i < result.l; i++)
     r[i] = result.decimals[i];
   delete[] result.decimals;
@@ -368,7 +382,8 @@ aBigNum aBigNum::multiply(const char figure, const unsigned int power) const
     delete[] result.decimals;
     result.l = l + power + 1;
     result.decimals = new char[result.l];
-    check_if_allocated_correctly(result.decimals);
+    if(!result.decimals)
+      throw "allocation problem";
     for(unsigned int i = 0; i < result.l; i++)
       result.decimals[i] = 0;
 
@@ -401,7 +416,8 @@ aBigNum aBigNum::divide(const aBigNum& divider, const bool return_remainder) con
   aBigNum quoitent;
   delete[] quoitent.decimals;
   quoitent.decimals = new char[l];  //can be maximum l (for example, if we divide by 1)
-  check_if_allocated_correctly(quoitent.decimals);
+  if(!quoitent.decimals)
+    throw "allocation problem";
   for(unsigned int i = 0; i < quoitent.l; i++)
     quoitent.decimals[i] = 0;
 
@@ -410,7 +426,8 @@ aBigNum aBigNum::divide(const aBigNum& divider, const bool return_remainder) con
   aBigNum aux;  //this is used to for internal substractions and divisations
   delete[] aux.decimals;
   aux.decimals = new char[divider.l + 1];
-  check_if_allocated_correctly(aux.decimals);
+  if(!aux.decimals)
+    throw "allocation problem";
 
   unsigned int k = l;
   quoitent.l = 1;
@@ -637,7 +654,8 @@ void aBigNum::add1()
   if(decimals[l - 1] > 9)
   {
     char *r = new char[l + 1];
-    check_if_allocated_correctly(r);
+    if(!r)
+      throw "allocation problem";
     for(int i = 0; i < l; i++)
       r[i] = decimals[i];
 
@@ -670,7 +688,8 @@ void aBigNum::substract1()
     l--;
 
   char *r = new char[l];
-  check_if_allocated_correctly(r);
+  if(!r)
+    throw "allocation problem";
   for(unsigned int i = 0; i < l; i++)
     r[i] = decimals[i];
   delete[] decimals;

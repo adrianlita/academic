@@ -8,7 +8,6 @@ outname="aPolygon.out";
 main="main_aPolygon.cpp"
 
 srcfiles=(
-    "utils/utils.cpp"
     "aPolygon/aPolygon.cpp"
 );
 

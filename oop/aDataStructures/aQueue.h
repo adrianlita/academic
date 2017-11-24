@@ -101,7 +101,8 @@ public:
   void push(const Type& element)
   {
     sNode<Type> *p = new sNode<Type>(element);
-    check_if_allocated_correctly(p);
+    if(!p)
+      throw "allocation problem";
     if(tail)
       tail->next = p;
     else

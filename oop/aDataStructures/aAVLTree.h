@@ -2,7 +2,6 @@
 #include "aNode.h"
 #include "aBinarySearchTree.h"
 #include <iostream>
-#include "../utils/utils.h"
 
 /*
 aAVLTree definition. implementation is below because it needs to reside within the h file
@@ -189,7 +188,8 @@ class aAVLTree : public aBinarySearchTree<Type>
     if(!node)
     {
       tNode<Type>* e = new tNodeAVL<Type>(element);
-      check_if_allocated_correctly(e);
+      if(!e)
+        throw "allocation problem";
       return e;
     }
     

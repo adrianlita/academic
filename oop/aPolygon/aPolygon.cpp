@@ -1,5 +1,4 @@
 #include "aPolygon.h"
-#include "../utils/utils.h"
 #include <math.h>
 using namespace std;
 

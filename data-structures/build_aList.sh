@@ -4,11 +4,11 @@ clear
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-outname="aBigNum.out";
-main="main_aBigNum.cpp"
+outname="aDataStructures.out";
+main="main_aDataStructures.cpp"
 
 srcfiles=(
-    "aBigNum/aBigNum.cpp"
+    "utils/utils.cpp"
 );
 
 src="";

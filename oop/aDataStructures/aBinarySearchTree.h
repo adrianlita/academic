@@ -1,7 +1,6 @@
 #pragma once
 #include "aNode.h"
 #include <iostream>
-#include "../utils/utils.h"
 
 /*
 aBinarySearchTree definition. implementation is below because it needs to reside within the h file
@@ -250,7 +249,8 @@ public:
     if(root == NULL)
     {
       root = new tNode<Type>(element);
-      check_if_allocated_correctly(root);
+      if(!root)
+        throw "allocation problem";
       return;
     }
 
@@ -263,7 +263,8 @@ public:
         else
         {
           node->left = new tNode<Type>(element);
-          check_if_allocated_correctly(node->left);
+          if(!node->left)
+            throw "allocation problem";
           return;
         }
       else
@@ -272,7 +273,8 @@ public:
         else
         {
           node->right = new tNode<Type>(element);
-          check_if_allocated_correctly(node->right);
+          if(!node->right)
+            throw "allocation problem";
           return;
         }
     }

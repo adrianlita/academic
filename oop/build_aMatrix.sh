@@ -8,7 +8,6 @@ outname="aMatrix.out";
 main="main_aMatrix.cpp"
 
 srcfiles=(
-    "utils/utils.cpp"
     "aMatrix/aMatrix.cpp"
 );
 

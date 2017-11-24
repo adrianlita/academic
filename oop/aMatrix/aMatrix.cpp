@@ -1,5 +1,4 @@
 #include "aMatrix.h"
-#include "../utils/utils.h"
 using namespace std;
 
 aMatrix::aMatrix()
@@ -20,11 +19,13 @@ aMatrix::aMatrix(const unsigned int size)
     l = size;
     c = size;
     m = new double*[l];
-    check_if_allocated_correctly(m);
+    if(!m)
+      throw "allocation problem";
     for(int i = 0; i < l; i++)
     {
       m[i] = new double[c];
-      check_if_allocated_correctly(m[i]);
+      if(!m[i])
+        throw "allocation problem";
       for(int j = 0; j < c; j++)
         m[i][j] = 0;
     }
@@ -42,11 +43,13 @@ aMatrix::aMatrix(const unsigned int lines, const unsigned int columns)
     l = lines;
     c = columns;
     m = new double*[l];
-    check_if_allocated_correctly(m);
+    if(!m)
+      throw "allocation problem";
     for(int i = 0; i < l; i++)
     {
       m[i] = new double[c];
-      check_if_allocated_correctly(m[i]);
+      if(!m[i])
+        throw "allocation problem";
       for(int j = 0; j < c; j++)
         m[i][j] = 0;
     }
@@ -63,11 +66,13 @@ aMatrix::aMatrix(const aMatrix& rhs)
     l = rhs.l;
     c = rhs.c;
     m = new double*[l];
-    check_if_allocated_correctly(m);
+    if(!m)
+      throw "allocation problem";
     for(int i = 0; i < l; i++)
     {
       m[i] = new double[c];
-      check_if_allocated_correctly(m[i]);
+      if(!m[i])
+        throw "allocation problem";
       for(int j = 0; j < c; j++)
         m[i][j] = rhs.m[i][j];
     }
@@ -120,11 +125,13 @@ aMatrix& aMatrix::operator=(const aMatrix& rhs)
       l = rhs.l;
       c = rhs.c;
       m = new double*[l];
-      check_if_allocated_correctly(m);
+      if(!m)
+        throw "allocation problem";
       for(int i = 0; i < l; i++)
       {
         m[i] = new double[c];
-        check_if_allocated_correctly(m[i]);
+        if(!m[i])
+          throw "allocation problem";
         for(int j = 0; j < c; j++)
           m[i][j] = rhs.m[i][j];
       }
@@ -301,11 +308,13 @@ aMatrix& aMatrix::operator*=(const aMatrix& rhs)
   l = rez.l;
   c = rez.c;
   m = new double*[l];
-  check_if_allocated_correctly(m);
+  if(!m)
+    throw "allocation problem";
   for(int i = 0; i < l; i++)
   {
     m[i] = new double[c];
-    check_if_allocated_correctly(m[i]);
+    if(!m[i])
+      throw "allocation problem";
     for(int j = 0; j < c; j++)
       m[i][j] = rhs.m[i][j];
   }
@@ -360,11 +369,13 @@ aMatrix& aMatrix::operator/=(const aMatrix& rhs)
   l = rez.l;
   c = rez.c;
   m = new double*[l];
-  check_if_allocated_correctly(m);
+  if(!m)
+    throw "allocation problem";
   for(int i = 0; i < l; i++)
   {
     m[i] = new double[c];
-    check_if_allocated_correctly(m[i]);
+    if(!m[i])
+      throw "allocation problem";
     for(int j = 0; j < c; j++)
       m[i][j] = rhs.m[i][j];
   }
@@ -492,7 +503,8 @@ double aMatrix::determinant(const aMatrix& x, const unsigned int level)
   for(int k = 0; k < level; k++)
   {
     n = new aMatrix(level - 1, level - 1);
-    check_if_allocated_correctly(n);
+    if(!n)
+      throw "allocation problem";
 
     for(int i = 0; i < level - 1; i++)
       for(int j = 0; j < level - 1; j++)

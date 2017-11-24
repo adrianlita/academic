@@ -9,7 +9,6 @@ main="main_aString.cpp"
 
 srcfiles=(
     "utils/my_string.c"
-    "utils/utils.cpp"
     "aString/aString.cpp"
 );
 

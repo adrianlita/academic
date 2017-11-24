@@ -8,7 +8,7 @@ outname="aDataStructures.out";
 main="main_aDataStructures.cpp"
 
 srcfiles=(
-    "utils/utils.cpp"
+
 );
 
 src="";

@@ -1,7 +1,6 @@
 #pragma once
 #include "aNode.h"
 #include <iostream>
-#include "../utils/utils.h"
 
 /*
 sLinkedList definition. implementation is below because it needs to reside within the h file
@@ -66,7 +65,8 @@ public:
   void Add_To_Head(const Type& element)
   {
     sNode<Type> *p = new sNode<Type>(element);
-    check_if_allocated_correctly(p);
+    if(!p)
+      throw "allocation problem";
     p->next = head->next;
     head->next = p;
     if(head == tail)
@@ -77,7 +77,8 @@ public:
   void Add_To_Tail(const Type& element)
   {
     sNode<Type> *p = new sNode<Type>(element);
-    check_if_allocated_correctly(p);
+    if(!p)
+      throw "allocation problem";
     tail->next = p;
     tail = p;
     length++;
@@ -232,7 +233,8 @@ public:
   {
     length = 0;
     head = new sNode<Type>;
-    check_if_allocated_correctly(head);
+    if(!head)
+      throw "allocation problem";
     tail = head;
   }
 
@@ -240,7 +242,8 @@ public:
   {
     length = 0;
     head = new sNode<Type>;
-    check_if_allocated_correctly(head);
+    if(!head)
+      throw "allocation problem";
     tail = head;
     
     Add_List_To_Tail(rhs);

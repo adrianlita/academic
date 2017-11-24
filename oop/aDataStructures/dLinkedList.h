@@ -1,7 +1,6 @@
 #pragma once
 #include "aNode.h"
 #include <iostream>
-#include "../utils/utils.h"
 
 /*
 dLinkedList definition. implementation is below because it needs to reside within the h file
@@ -82,7 +81,8 @@ public:
   void Add_To_Head(const Type& element)
   {
     dNode<Type> *p = new dNode<Type>(element);
-    check_if_allocated_correctly(p);
+    if(!p)
+      throw "allocation problem";
     p->next = head->next;
     p->prev = head;
     head->next->prev = p;
@@ -99,7 +99,8 @@ public:
   void Add_To_Tail(const Type& element)
   {
     dNode<Type> *p = new dNode<Type>(element);
-    check_if_allocated_correctly(p);
+    if(!p)
+      throw "allocation problem";
     tail->next = p;
     p->prev = tail;
     tail = p;
@@ -324,7 +325,8 @@ public:
   {
     length = 0;
     head = new dNode<Type>;
-    check_if_allocated_correctly(head);
+    if(!head)
+      throw "allocation problem";
     tail = head;
     direction = false;
     current = head;
@@ -334,7 +336,8 @@ public:
   {
     length = 0;
     head = new dNode<Type>;
-    check_if_allocated_correctly(head);
+    if(!head)
+      throw "allocation problem";
     tail = head;
     direction = false;
     current = head;
