@@ -75,6 +75,20 @@ Stack and queue implementation features:
 
 ## Binary Search Tree, AVL Balanced Binary Search Tree
 
+Binary search tree features:
+  * adding an element
+  * deleteing an element
+  * counting elements
+  * deleting whole tree
+  * check if element exists
+  * in-, pre- and post-order tree traversals
+
+AVL trees are inherited from binary search trees. Their main advantage is that they are balanced ( |height(right) - height(left)| < 2 ).
+AVL trees have the following differences from the base class Binary Search Trees:
+  * node rotations (simple left, simple right, double left, double right)
+  * balance function
+  * node class is derived from base class' node class (tNodeAVL<Type> is derived from tNode<Type>)
+
 ---
 # aPolygon
 A simple convex, non-intersecting polygon for demonstrating class inheritance and polymorphism.

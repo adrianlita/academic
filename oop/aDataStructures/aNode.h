@@ -80,22 +80,42 @@ public:
   }
   
   friend class aBinarySearchTree<Type>;
+  friend class aAVLTree<Type>;
 };
 
 //tNodeAVL - node implementation for AVL trees
 template <typename Type>
 class tNodeAVL : public tNode<Type>
 {
-  int equilibrium;
+  int balance;
+
+  int height(const tNodeAVL<Type>* node)
+  {
+    if(!node)
+		  return 0;
+
+    int leftHeight = height((tNodeAVL<Type>*)(node->left));
+    int rightHeight = height((tNodeAVL<Type>*)(node->right));
+    
+    if(leftHeight > rightHeight)
+      return leftHeight + 1;
+    else
+      return rightHeight + 1;
+  }
+
+  void calculate_balance()
+  {
+    balance = height((tNodeAVL<Type>*)(this->right)) - height((tNodeAVL<Type>*)(this->left));
+  } 
 public:
   tNodeAVL() : tNode<Type>()
   {
-    equilibrium = 0;
+    balance = 0;
   }
   
   tNodeAVL(const Type& value) : tNode<Type>(value)
   {
-    equilibrium = 0;
+    balance = 0;
   }
   
   friend class aAVLTree<Type>;

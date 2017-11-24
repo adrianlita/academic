@@ -4,6 +4,7 @@
 #include "aDataStructures/aStack.h"
 #include "aDataStructures/aQueue.h"
 #include "aDataStructures/aBinarySearchTree.h"
+#include "aDataStructures/aAVLTree.h"
 using namespace std;
 
 int main()
@@ -266,16 +267,58 @@ int main()
   f.Add(14);
   cout << "Total nodes in BST: " << f.Total_Nodes() << endl;
   cout << f << endl;
-  cout << (int)f.Delete(8) << endl; 
+  f.Delete(8);
   cout << f << endl;
-  cout << (int)f.Delete(14) << endl; 
+  f.Delete(14);
   cout << f << endl;
-  cout << (int)f.Delete(29) << endl; 
+  f.Delete(29); //should not do anything
   cout << f << endl;
 
   f.PreOrder();
   f.InOrder();
   f.PostOrder();
+
+  aBinarySearchTree<int> g = f;
+  cout << g << endl;
+
+  cout << endl << endl << endl;
+
+  aAVLTree<int> avl;
+  cout << avl << endl;
+  avl.Add(1);
+  avl.Add(2);
+  avl.Add(3);
+  avl.Add(4);
+  avl.Add(5);
+  avl.Add(6);
+  avl.Add(7);
+  avl.Add(8);
+  avl.Add(9);
+  avl.Add(10);
+  avl.Add(11);
+  avl.Add(12);
+  avl.Add(13);
+  avl.Add(14);
+  avl.Add(15);
+  cout << "Total nodes in AVL: " << avl.Total_Nodes() << endl;
+  cout << avl << endl;
+  avl.Delete(8);
+  cout << avl << endl;
+  avl.Delete(4);
+  cout << avl << endl;
+  avl.Delete(2);
+  cout << avl << endl;
+  avl.Delete(10);
+  cout << avl << endl;
+  avl.Delete(11);
+  cout << avl << endl;
+  avl.Delete(29); //should not do anything
+  cout << avl << endl;
+
+  avl.PreOrder();
+  avl.InOrder();
+  avl.PostOrder();
+
 
   cout << "aDataStructures finished!" << endl;
   return EXIT_SUCCESS;
