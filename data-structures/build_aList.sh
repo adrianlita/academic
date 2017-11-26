@@ -4,11 +4,12 @@ clear
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-outname="aDataStructures.out";
-main="main_aDataStructures.cpp"
+outname="aList.out";
+main="main_aList.c"
 
 srcfiles=(
-    "utils/utils.cpp"
+    "aList/aList.c"
+    "utils/utils.c"
 );
 
 src="";
@@ -17,7 +18,7 @@ do
     src+=" $i";
 done
 
-gcccmd="g++ -Wall -m32 $src $main -o $outname"
+gcccmd="gcc -Wall -m32 $src $main -o $outname"
 
 rm $outname
 printf "${RED}Build started...${NC}\n"
