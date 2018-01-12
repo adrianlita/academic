@@ -19,6 +19,38 @@ int main()
     printf("%d ", list.data[i]);
   printf("\n");
 
+  aList_Add_Position(&list, 0, 100);
+  
+  for(int i = 0; i < list.n; i++)
+    printf("%d ", list.data[i]);
+  printf("\n");
+
+  aList_Add_Position(&list, 1, 101);
+  
+  for(int i = 0; i < list.n; i++)
+    printf("%d ", list.data[i]);
+  printf("\n");
+
+  aList_Add_Position(&list, 100, 103);
+  
+  for(int i = 0; i < list.n; i++)
+    printf("%d ", list.data[i]);
+  printf("\n");
+
+  aList_Add_Position(&list, 8, 104);
+  
+  for(int i = 0; i < list.n; i++)
+    printf("%d ", list.data[i]);
+  printf("\n");
+
+  aList_Add_Position(&list, 10, 105);
+  
+  for(int i = 0; i < list.n; i++)
+    printf("%d ", list.data[i]);
+  printf("\n");
+
+  
+
   aList_Remove_Tail(&list);
 
   for(int i = 0; i < list.n; i++)

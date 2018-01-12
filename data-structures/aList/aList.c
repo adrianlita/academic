@@ -70,10 +70,11 @@ int aList_Add_Head(aList* this, const DATA data)
   aList_manage_memory(this, this->n);
   
   //move everything to the left
-  for(int i = this->n - 1; i >= 1; i--)
+  for(int i = this->n - 1; i > 0; i--)
     this->data[i] = this->data[i - 1];
   
   this->data[0] = data;
+  return 0;
 }
 
 int aList_Add_Tail(aList* this, const DATA data)
@@ -85,14 +86,28 @@ int aList_Add_Tail(aList* this, const DATA data)
   aList_manage_memory(this, this->n);
 
   this->data[this->n - 1] = data;
-  my_assert("salut");
+  return this->n - 1;
 }
 
-int aList_Add_Position(aList* this, const DATA data, const unsigned int position)
+int aList_Add_Position(aList* this, const unsigned int position, const DATA data)
 {
   if(this == NULL)
     return -1;
 
+  if(this->n <= position)
+    return aList_Add_Tail(this, data);
+
+  if(position == 0)
+    return aList_Add_Head(this, data);
+
+  this->n++;
+  aList_manage_memory(this, this->n);
+
+  for(unsigned int i = this->n - 1; i > position; i--)
+    this->data[i] = this->data[i - 1];
+
+  this->data[position] = data;
+  return position;
 }
 
 int aList_Remove_Head(aList* this)
@@ -104,6 +119,7 @@ int aList_Remove_Head(aList* this)
     this->data[i] = this->data[i + 1];
   this->n--;
   aList_manage_memory(this, this->n);
+  return 0;
 }
 
 int aList_Remove_Tail(aList* this)
@@ -113,12 +129,15 @@ int aList_Remove_Tail(aList* this)
 
   this->n--;
   aList_manage_memory(this, this->n);
+  return 0;
 }
 
 int aList_Remove_Element(aList* this, const DATA data)
 {
   if(this == NULL)
     return -1;
+
+  //checkAL de aici nu e facut
 
   this->n--;
   aList_manage_memory(this, this->n);
