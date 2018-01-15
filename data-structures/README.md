@@ -10,4 +10,6 @@ Features:
   * find operations
   * get/set operations
 
+  *** not ready yet
+
 ---
