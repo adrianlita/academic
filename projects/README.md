@@ -9,6 +9,14 @@ Features:
   * loading/saving BMP files from/to disk
   * direct bitmap manipulation
 
-  *** not ready yet
+Examples:
+  1. load a bitmap and show it as 1s and 0s on screen
+  2. draw in X on a 30x30 bitmap and save to file
+
+Help:
+  * to build, run "make build"
+  * to run, run "make run"
+  * to clean, run "make clean"
+
 
 ---

@@ -39,6 +39,7 @@ struct aBitmap_Pixel
   unsigned char red;
 
   aBitmap_Pixel();
+  aBitmap_Pixel(unsigned char red, unsigned char green, unsigned char blue);
 
   bool isWhite();
   bool isBlack();
@@ -49,14 +50,25 @@ class aBitmap
   aBitmap_FileHeader file_header;
   aBitmap_InfoHeader info_header;
 
+  aBitmap_Pixel **bitmap;
+
+  void FreeBitmap();
+  void CopyBitmap(const aBitmap& rhs);
 public:
   aBitmap(const char* filename);
   aBitmap(const unsigned int height, const unsigned int width);
+  aBitmap(const aBitmap& rhs);
+  aBitmap& operator=(const aBitmap& rhs);
+  ~aBitmap();
+
+  void Verbose();
+
+  void FreeAndLoadFromFile(const char* filename);
+  void FreeAndCreateNew(const unsigned int height, const unsigned int width);
 
   unsigned int Height();
   unsigned int Width();
 
-  void LoadFromFile(const char* filename);
   void SaveToFile(const char* filename);
 
   aBitmap_Pixel& Pixel(unsigned int line, unsigned int column);
