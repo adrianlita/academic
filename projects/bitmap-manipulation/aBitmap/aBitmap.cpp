@@ -173,7 +173,8 @@ void aBitmap::FreeAndLoadFromFile(const char* filename)
   fread(&file_header, sizeof(aBitmap_FileHeader), 1, file);
   fread(&info_header, sizeof(aBitmap_InfoHeader), 1, file); 
 
-  Verbose(); 
+  if((info_header.bitPix != 24) && (info_header.bitPix != 32))
+    throw("Invalid bits per pixel, can't load image");
   
   // calculating the padding according to the formula  
   padding =  (4 - (Width() * info_header.bitPix/8) % 4) % 4;
