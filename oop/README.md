@@ -14,6 +14,13 @@ The requirements for implemeting the 2-dimensional matrix class in C++ are the f
   * basic default matrix (O and I)
 
 ---
+# anotherMatrix
+## Implementing a 2D matrix in C++.
+
+The same implementation of aMatrix together with aVector.
+The purpose is to allow usage of matrix[i][j] directly rather than matrix(i, j).
+
+---
 # aString
 ## Implementing a simple string in C++ without using the String class.
 
